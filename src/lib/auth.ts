@@ -7,8 +7,8 @@ import { Resend } from "resend";
 const resend = new Resend(process.env.RESEND_API_KEY);
 const DEMO = process.env.DEMO_MODE === "true";
 
-const appUrl = process.env.VERCEL_URL
-  ? `https://${process.env.VERCEL_URL}`
+const appUrl = process.env.VERCEL_PROJECT_PRODUCTION_URL
+  ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
   : process.env.BETTER_AUTH_URL ?? "http://localhost:3000";
 
 async function saveDemoEmail(email: string, type: string, subject: string, url: string) {

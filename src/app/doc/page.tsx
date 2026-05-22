@@ -458,9 +458,10 @@ return NextResponse.redirect(new URL("/onboarding", request.url));`}</Code>
             <Callout>
               <InlineCode>NEXT_PUBLIC_APP_URL</InlineCode> and{" "}
               <InlineCode>BETTER_AUTH_URL</InlineCode> are <strong>not needed on Vercel</strong>.{" "}
-              Both are auto-derived from Vercel&apos;s built-in <InlineCode>VERCEL_URL</InlineCode>{" "}
-              variable, which is set automatically on every deployment — production, preview,
-              and branch deploys all get the correct URL with no manual config.
+              Both are auto-derived from <InlineCode>VERCEL_PROJECT_PRODUCTION_URL</InlineCode>,
+              Vercel&apos;s built-in variable for the stable production domain. Do not use{" "}
+              <InlineCode>VERCEL_URL</InlineCode> — it changes on every deployment and causes
+              CORS errors when users visit the production alias.
             </Callout>
 
             <H3>Update OAuth redirect URIs</H3>
