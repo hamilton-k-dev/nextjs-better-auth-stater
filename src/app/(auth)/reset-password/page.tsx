@@ -39,28 +39,37 @@ function ResetPasswordForm() {
 
   async function onRequestSubmit(values: ResetPasswordInput) {
     setLoading(true);
-    const { error } = await authClient.requestPasswordReset({
-      email: values.email,
-      redirectTo: "/reset-password",
-    });
-    setLoading(false);
-    if (error) toast.error(error.message);
-    else setEmailSent(true);
+    try {
+      const { error } = await authClient.requestPasswordReset({
+        email: values.email,
+        redirectTo: "/reset-password",
+      });
+      if (error) toast.error(error.message);
+      else setEmailSent(true);
+    } catch {
+      toast.error("Something went wrong. Please try again.");
+    } finally {
+      setLoading(false);
+    }
   }
 
   async function onNewPasswordSubmit(values: NewPasswordInput) {
     if (!token) return;
     setLoading(true);
-    const { error } = await authClient.resetPassword({
-      token,
-      newPassword: values.password,
-    });
-    setLoading(false);
-    if (error) {
-      toast.error(error.message);
-    } else {
-      toast.success("Password updated! You can now sign in.");
-      router.push("/login");
+    try {
+      const { error } = await authClient.resetPassword({
+        token,
+        newPassword: values.password,
+      });
+      if (error) toast.error(error.message);
+      else {
+        toast.success("Password updated! You can now sign in.");
+        router.push("/login");
+      }
+    } catch {
+      toast.error("Something went wrong. Please try again.");
+    } finally {
+      setLoading(false);
     }
   }
 

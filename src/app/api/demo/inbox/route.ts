@@ -13,10 +13,13 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ error: "email and type are required" }, { status: 400 });
   }
 
-  const message = await prisma.demoInbox.findUnique({
-    where: { email_type: { email, type } },
-    select: { url: true, subject: true, type: true },
-  });
-
-  return NextResponse.json(message ?? null);
+  try {
+    const message = await prisma.demoInbox.findUnique({
+      where: { email_type: { email, type } },
+      select: { url: true, subject: true, type: true },
+    });
+    return NextResponse.json(message ?? null);
+  } catch {
+    return NextResponse.json(null);
+  }
 }

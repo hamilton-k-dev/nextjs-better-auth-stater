@@ -8,11 +8,15 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 const DEMO = process.env.DEMO_MODE === "true";
 
 async function saveDemoEmail(email: string, type: string, subject: string, url: string) {
-  await prisma.demoInbox.upsert({
-    where: { email_type: { email, type } },
-    update: { url, subject },
-    create: { email, type, subject, url },
-  });
+  try {
+    await prisma.demoInbox.upsert({
+      where: { email_type: { email, type } },
+      update: { url, subject },
+      create: { email, type, subject, url },
+    });
+  } catch (e) {
+    console.error("[demo] saveDemoEmail failed — did you run prisma migrate?", e);
+  }
 }
 
 export const auth = betterAuth({

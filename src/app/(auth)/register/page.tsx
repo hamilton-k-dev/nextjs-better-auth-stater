@@ -28,15 +28,20 @@ export default function RegisterPage() {
 
   async function onSubmit(values: RegisterInput) {
     setLoading(true);
-    const { error } = await signUp.email({
-      name: values.name,
-      email: values.email,
-      password: values.password,
-      callbackURL: "/dashboard",
-    });
-    setLoading(false);
-    if (error) toast.error(error.message);
-    else setVerificationSent(true);
+    try {
+      const { error } = await signUp.email({
+        name: values.name,
+        email: values.email,
+        password: values.password,
+        callbackURL: "/dashboard",
+      });
+      if (error) toast.error(error.message);
+      else setVerificationSent(true);
+    } catch {
+      toast.error("Something went wrong. Please try again.");
+    } finally {
+      setLoading(false);
+    }
   }
 
   async function handleOAuth(provider: "google" | "github") {

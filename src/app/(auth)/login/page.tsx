@@ -50,25 +50,35 @@ function LoginContent() {
 
   async function onPasswordSubmit(values: LoginInput) {
     setLoading(true);
-    const { error } = await signIn.email({
-      email: values.email,
-      password: values.password,
-      callbackURL: callbackUrl,
-    });
-    setLoading(false);
-    if (error) toast.error(error.message);
-    else router.push(callbackUrl);
+    try {
+      const { error } = await signIn.email({
+        email: values.email,
+        password: values.password,
+        callbackURL: callbackUrl,
+      });
+      if (error) toast.error(error.message);
+      else router.push(callbackUrl);
+    } catch {
+      toast.error("Something went wrong. Please try again.");
+    } finally {
+      setLoading(false);
+    }
   }
 
   async function onMagicLinkSubmit(values: MagicLinkInput) {
     setLoading(true);
-    const { error } = await authClient.signIn.magicLink({
-      email: values.email,
-      callbackURL: callbackUrl,
-    });
-    setLoading(false);
-    if (error) toast.error(error.message);
-    else setMagicSent(true);
+    try {
+      const { error } = await authClient.signIn.magicLink({
+        email: values.email,
+        callbackURL: callbackUrl,
+      });
+      if (error) toast.error(error.message);
+      else setMagicSent(true);
+    } catch {
+      toast.error("Something went wrong. Please try again.");
+    } finally {
+      setLoading(false);
+    }
   }
 
   async function handleOAuth(provider: "google" | "github") {
