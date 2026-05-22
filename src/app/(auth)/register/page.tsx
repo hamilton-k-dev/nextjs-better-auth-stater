@@ -37,7 +37,8 @@ export default function RegisterPage() {
       });
       if (error) toast.error(error.message);
       else setVerificationSent(true);
-    } catch {
+    } catch (e) {
+      console.error("[register]", e);
       toast.error("Something went wrong. Please try again.");
     } finally {
       setLoading(false);

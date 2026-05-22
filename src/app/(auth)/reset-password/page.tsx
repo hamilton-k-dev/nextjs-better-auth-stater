@@ -46,7 +46,8 @@ function ResetPasswordForm() {
       });
       if (error) toast.error(error.message);
       else setEmailSent(true);
-    } catch {
+    } catch (e) {
+      console.error("[reset-password/request]", e);
       toast.error("Something went wrong. Please try again.");
     } finally {
       setLoading(false);
@@ -66,7 +67,8 @@ function ResetPasswordForm() {
         toast.success("Password updated! You can now sign in.");
         router.push("/login");
       }
-    } catch {
+    } catch (e) {
+      console.error("[reset-password/new]", e);
       toast.error("Something went wrong. Please try again.");
     } finally {
       setLoading(false);

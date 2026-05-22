@@ -58,7 +58,8 @@ function LoginContent() {
       });
       if (error) toast.error(error.message);
       else router.push(callbackUrl);
-    } catch {
+    } catch (e) {
+      console.error("[login/password]", e);
       toast.error("Something went wrong. Please try again.");
     } finally {
       setLoading(false);
@@ -74,7 +75,8 @@ function LoginContent() {
       });
       if (error) toast.error(error.message);
       else setMagicSent(true);
-    } catch {
+    } catch (e) {
+      console.error("[login/magic-link]", e);
       toast.error("Something went wrong. Please try again.");
     } finally {
       setLoading(false);
