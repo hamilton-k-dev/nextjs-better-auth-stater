@@ -141,7 +141,12 @@ export const auth = betterAuth({
     },
   },
 
-  trustedOrigins: [appUrl],
+  trustedOrigins: [
+    appUrl,
+    ...(process.env.BETTER_AUTH_TRUSTED_ORIGINS
+      ? process.env.BETTER_AUTH_TRUSTED_ORIGINS.split(",").map((s) => s.trim())
+      : []),
+  ],
 });
 
 export type AuthUser = typeof auth.$Infer.Session.user;
