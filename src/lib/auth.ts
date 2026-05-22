@@ -7,6 +7,10 @@ import { Resend } from "resend";
 const resend = new Resend(process.env.RESEND_API_KEY);
 const DEMO = process.env.DEMO_MODE === "true";
 
+const appUrl = process.env.VERCEL_URL
+  ? `https://${process.env.VERCEL_URL}`
+  : process.env.BETTER_AUTH_URL ?? "http://localhost:3000";
+
 async function saveDemoEmail(email: string, type: string, subject: string, url: string) {
   try {
     await prisma.demoInbox.upsert({
@@ -21,7 +25,7 @@ async function saveDemoEmail(email: string, type: string, subject: string, url: 
 
 export const auth = betterAuth({
   database: prismaAdapter(prisma, { provider: "postgresql" }),
-  baseURL: process.env.BETTER_AUTH_URL ?? "http://localhost:3000",
+  baseURL: appUrl,
 
   user: {
     additionalFields: {
@@ -137,7 +141,7 @@ export const auth = betterAuth({
     },
   },
 
-  trustedOrigins: [process.env.BETTER_AUTH_URL ?? "http://localhost:3000"],
+  trustedOrigins: [appUrl],
 });
 
 export type AuthUser = typeof auth.$Infer.Session.user;

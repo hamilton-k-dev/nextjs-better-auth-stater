@@ -456,9 +456,11 @@ return NextResponse.redirect(new URL("/onboarding", request.url));`}</Code>
             </div>
 
             <Callout>
-              <InlineCode>NEXT_PUBLIC_*</InlineCode> variables are baked into the client bundle
-              at build time. After changing them in Vercel settings, you must trigger a new
-              deployment for the change to take effect.
+              <InlineCode>NEXT_PUBLIC_APP_URL</InlineCode> and{" "}
+              <InlineCode>BETTER_AUTH_URL</InlineCode> are <strong>not needed on Vercel</strong>.{" "}
+              Both are auto-derived from Vercel&apos;s built-in <InlineCode>VERCEL_URL</InlineCode>{" "}
+              variable, which is set automatically on every deployment — production, preview,
+              and branch deploys all get the correct URL with no manual config.
             </Callout>
 
             <H3>Update OAuth redirect URIs</H3>
@@ -603,8 +605,8 @@ const stack = [
 ];
 
 const envVars = [
-  { name: "NEXT_PUBLIC_APP_URL", required: "Yes", desc: "Your app's public URL (baked into client bundle)" },
-  { name: "BETTER_AUTH_URL", required: "Yes", desc: "Same as above — used server-side by better-auth" },
+  { name: "NEXT_PUBLIC_APP_URL", required: "Local only", desc: "Set to http://localhost:3000 locally. On Vercel, auto-derived from VERCEL_URL via next.config.ts." },
+  { name: "BETTER_AUTH_URL", required: "Local only", desc: "Set to http://localhost:3000 locally. On Vercel, auto-derived from VERCEL_URL in auth.ts." },
   { name: "BETTER_AUTH_SECRET", required: "Yes", desc: "Random 32-byte secret: openssl rand -base64 32" },
   { name: "DATABASE_URL", required: "Yes", desc: "Neon pooled connection string" },
   { name: "DIRECT_URL", required: "Yes", desc: "Neon direct URL — used by prisma migrate" },
@@ -619,8 +621,8 @@ const envVars = [
 ];
 
 const deployVars = [
-  { name: "NEXT_PUBLIC_APP_URL", value: "https://yourdomain.com" },
-  { name: "BETTER_AUTH_URL", value: "https://yourdomain.com" },
+  { name: "NEXT_PUBLIC_APP_URL", value: "Not needed — auto-derived from VERCEL_URL" },
+  { name: "BETTER_AUTH_URL", value: "Not needed — auto-derived from VERCEL_URL" },
   { name: "BETTER_AUTH_SECRET", value: "generate with openssl rand -base64 32" },
   { name: "DATABASE_URL", value: "Neon pooled URL" },
   { name: "DIRECT_URL", value: "Neon direct URL" },
