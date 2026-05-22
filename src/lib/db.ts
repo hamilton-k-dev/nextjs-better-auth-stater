@@ -1,4 +1,3 @@
-import "dotenv/config";
 import { PrismaClient } from "../generated/prisma";
 import { PrismaNeon } from "@prisma/adapter-neon";
 
