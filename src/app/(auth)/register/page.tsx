@@ -11,6 +11,9 @@ import { signUp, signIn } from "@/lib/auth-client";
 import { FaGoogle, FaGithub } from "react-icons/fa";
 import { Check } from "lucide-react";
 import { registerSchema, type RegisterInput } from "@/lib/validations/auth";
+import { DemoEmailCard } from "@/components/demo-inbox";
+
+const isDemo = process.env.NEXT_PUBLIC_DEMO_MODE === "true";
 
 export default function RegisterPage() {
   const router = useRouter();
@@ -49,6 +52,7 @@ export default function RegisterPage() {
   }
 
   if (verificationSent) {
+    const email = form.getValues("email");
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
         <div className="w-full max-w-md bg-white rounded-2xl shadow-sm border border-gray-200 p-8 text-center space-y-4">
@@ -58,9 +62,12 @@ export default function RegisterPage() {
           <h1 className="text-xl font-bold text-gray-900">Check your email</h1>
           <p className="text-sm text-gray-500">
             We sent a verification link to{" "}
-            <strong className="text-gray-700">{form.getValues("email")}</strong>
-            . Click it to activate your account.
+            <strong className="text-gray-700">{email}</strong>. Click it to
+            activate your account.
           </p>
+          {isDemo && (
+            <DemoEmailCard email={email} type="verification" />
+          )}
           <button
             onClick={() => router.push("/login")}
             className="w-full py-2.5 px-4 border border-gray-300 text-sm font-medium rounded-lg hover:bg-gray-50 transition"

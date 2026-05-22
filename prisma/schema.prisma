@@ -80,3 +80,16 @@ model Verification {
   @@index([identifier])
   @@map("verification")
 }
+
+model DemoInbox {
+  id        String   @id @default(uuid())
+  email     String
+  type      String
+  subject   String
+  url       String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([email, type])
+  @@map("demo_inbox")
+}

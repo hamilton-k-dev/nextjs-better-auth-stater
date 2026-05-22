@@ -8,6 +8,7 @@ const PUBLIC_ROUTES = [
   "/register",
   "/reset-password",
   "/verify-email",
+  "/api/demo",
 ];
 
 const AUTH_ROUTES = ["/login", "/register"];

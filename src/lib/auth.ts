@@ -5,6 +5,15 @@ import { prisma } from "./db";
 import { Resend } from "resend";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
+const DEMO = process.env.DEMO_MODE === "true";
+
+async function saveDemoEmail(email: string, type: string, subject: string, url: string) {
+  await prisma.demoInbox.upsert({
+    where: { email_type: { email, type } },
+    update: { url, subject },
+    create: { email, type, subject, url },
+  });
+}
 
 export const auth = betterAuth({
   database: prismaAdapter(prisma, { provider: "postgresql" }),
@@ -25,6 +34,10 @@ export const auth = betterAuth({
     enabled: true,
     requireEmailVerification: true,
     sendResetPassword: async ({ user, url }) => {
+      if (DEMO) {
+        await saveDemoEmail(user.email, "password-reset", "Reset your password", url);
+        return;
+      }
       await resend.emails.send({
         from: process.env.EMAIL_FROM!,
         to: user.email,
@@ -47,6 +60,10 @@ export const auth = betterAuth({
     sendOnSignUp: true,
     autoSignInAfterVerification: true,
     sendVerificationEmail: async ({ user, url }) => {
+      if (DEMO) {
+        await saveDemoEmail(user.email, "verification", "Verify your email address", url);
+        return;
+      }
       await resend.emails.send({
         from: process.env.EMAIL_FROM!,
         to: user.email,
@@ -79,6 +96,10 @@ export const auth = betterAuth({
   plugins: [
     magicLink({
       sendMagicLink: async ({ email, url }) => {
+        if (DEMO) {
+          await saveDemoEmail(email, "magic-link", "Your magic link", url);
+          return;
+        }
         await resend.emails.send({
           from: process.env.EMAIL_FROM!,
           to: email,

@@ -16,6 +16,9 @@ import {
   type ResetPasswordInput,
   type NewPasswordInput,
 } from "@/lib/validations/auth";
+import { DemoEmailCard } from "@/components/demo-inbox";
+
+const isDemo = process.env.NEXT_PUBLIC_DEMO_MODE === "true";
 
 function ResetPasswordForm() {
   const searchParams = useSearchParams();
@@ -113,6 +116,7 @@ function ResetPasswordForm() {
 
   // ── Email sent confirmation ────────────────────────────────────
   if (emailSent) {
+    const email = requestForm.getValues("email");
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
         <div className="w-full max-w-md bg-white rounded-2xl shadow-sm border border-gray-200 p-8 text-center space-y-4">
@@ -122,11 +126,12 @@ function ResetPasswordForm() {
           <h1 className="text-xl font-bold text-gray-900">Check your email</h1>
           <p className="text-sm text-gray-500">
             If an account exists for{" "}
-            <strong className="text-gray-700">
-              {requestForm.getValues("email")}
-            </strong>
-            , you will receive a reset link shortly.
+            <strong className="text-gray-700">{email}</strong>, you will
+            receive a reset link shortly.
           </p>
+          {isDemo && (
+            <DemoEmailCard email={email} type="password-reset" />
+          )}
           <button
             onClick={() => router.push("/login")}
             className="w-full py-2.5 px-4 border border-gray-300 text-sm font-medium rounded-lg hover:bg-gray-50 transition"

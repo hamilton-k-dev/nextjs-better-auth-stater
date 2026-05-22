@@ -17,6 +17,7 @@ A production-ready authentication starter built with the latest versions of Next
 - 🔐 **Email & Password** — sign up, sign in, email verification, password reset
 - ✨ **Magic Links** — passwordless authentication via email
 - 🌐 **OAuth** — Google and GitHub providers
+- 🧪 **Demo Mode** — skip email sending; links shown directly in the UI
 - 🛡️ **Role-Based Access Control** — `USER` and `ADMIN` roles with protected routes
 - 📧 **Transactional Emails** — powered by Resend
 - 🗄️ **Neon + Prisma** — serverless PostgreSQL with type-safe ORM
@@ -275,6 +276,30 @@ To add a new protected route, simply leave it out of `PUBLIC_ROUTES`. To add an 
 | `/reset-password`  | Public     | Forgot & reset password               |
 | `/dashboard`       | Protected  | User dashboard                        |
 | `/dashboard/admin` | Admin only | Admin panel                           |
+
+---
+
+## 🧪 Demo Mode
+
+Demo mode disables Resend and surfaces email links (verification, magic link, password reset) directly in the UI as an amber card — no inbox needed. Perfect for public demos.
+
+Enable it by setting both variables in your environment:
+
+```env
+DEMO_MODE="true"
+NEXT_PUBLIC_DEMO_MODE="true"
+```
+
+`RESEND_API_KEY` and `EMAIL_FROM` are **not required** in demo mode.
+
+You must run the database migration once to create the `demo_inbox` table:
+
+```bash
+npx prisma migrate dev --name add-demo-inbox   # local
+npx prisma migrate deploy                       # production
+```
+
+See [docs/demo-mode.md](docs/demo-mode.md) for the full architecture and affected files.
 
 ---
 

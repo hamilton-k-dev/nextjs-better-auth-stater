@@ -15,6 +15,9 @@ import {
   type LoginInput,
   type MagicLinkInput,
 } from "@/lib/validations/auth";
+import { DemoEmailCard } from "@/components/demo-inbox";
+
+const isDemo = process.env.NEXT_PUBLIC_DEMO_MODE === "true";
 
 type Mode = "password" | "magic-link";
 
@@ -182,14 +185,22 @@ function LoginContent() {
         {mode === "magic-link" && (
           <>
             {magicSent ? (
-              <div className="rounded-xl bg-gray-50 border border-gray-200 p-4 text-center space-y-1">
-                <p className="font-medium text-sm text-gray-900">
-                  Check your inbox!
-                </p>
-                <p className="text-xs text-gray-500">
-                  We sent a magic link to{" "}
-                  <strong>{magicForm.getValues("email")}</strong>
-                </p>
+              <div className="space-y-3">
+                <div className="rounded-xl bg-gray-50 border border-gray-200 p-4 text-center space-y-1">
+                  <p className="font-medium text-sm text-gray-900">
+                    Check your inbox!
+                  </p>
+                  <p className="text-xs text-gray-500">
+                    We sent a magic link to{" "}
+                    <strong>{magicForm.getValues("email")}</strong>
+                  </p>
+                </div>
+                {isDemo && (
+                  <DemoEmailCard
+                    email={magicForm.getValues("email")}
+                    type="magic-link"
+                  />
+                )}
               </div>
             ) : (
               <form
