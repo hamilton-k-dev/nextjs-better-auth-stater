@@ -1,6 +1,10 @@
 # ⚡ Next.js Better Auth Starter
 
+<img src="public/landing.png" alt="Landing page" width="700" />
+
 A production-ready authentication starter built with the latest versions of Next.js, better-auth, Prisma, and Neon. Everything you need to ship auth fast — email/password, OAuth, magic links, role-based access, and transactional emails all wired up out of the box.
+
+🔗 **[View Demo](https://nextjs-better-auth-stater.vercel.app)**
 
 ---
 
@@ -33,6 +37,35 @@ A production-ready authentication starter built with the latest versions of Next
 
 ---
 
+## 🖼️ Pages
+
+### Landing
+The public entry point — introduces the app and links to sign in / sign up.
+
+<img src="public/landing.png" alt="Landing page" width="700" />
+
+### Login
+Sign in with email + password, a magic link, or OAuth (Google / GitHub). Includes a forgot password link.
+
+<img src="public/login.png" alt="Login page" width="700" />
+
+### Register
+Create a new account with email + password or OAuth. Sends a verification email on sign up.
+
+<img src="public/register.png" alt="Register page" width="700" />
+
+### Dashboard
+Protected user dashboard showing account details, role badge, and email verification status.
+
+<img src="public/dashboard.png" alt="Dashboard" width="700" />
+
+### Admin Panel
+Accessible to `ADMIN` users only. Lists all users with search, role filter, and promote / revoke controls.
+
+<img src="public/admin-dashboard.png" alt="Admin dashboard" width="700" />
+
+---
+
 ## 📁 Project Structure
 
 ```
@@ -50,11 +83,6 @@ src/
 │   └── api/
 │       ├── auth/[...all]/route.ts      # better-auth handler
 │       └── admin/users/route.ts        # Admin user management API
-├── actions/
-│   └── server.ts                       # Server actions
-├── components/
-│   └── auth/
-│       └── loginForm.tsx               # Login form component
 ├── lib/
 │   ├── auth.ts                         # better-auth server config
 │   ├── auth-client.ts                  # better-auth browser client
