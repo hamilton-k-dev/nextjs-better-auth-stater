@@ -6,7 +6,7 @@ A production-ready authentication starter built with the latest versions of Next
 
 <div align="center">
 
-🔗 **[View Demo](https://nextjs-better-auth-stater.vercel.app)**
+🔗 **[View Demo](https://nextjs-better-auth-stater-three.vercel.app/)**
 
 </div>
 
@@ -237,7 +237,13 @@ Route protection is enforced server-side via Next.js 16's `proxy.ts` — the rep
 
 ```ts
 // Accessible without a session
-const PUBLIC_ROUTES = ["/", "/login", "/register", "/reset-password", "/verify-email"];
+const PUBLIC_ROUTES = [
+  "/",
+  "/login",
+  "/register",
+  "/reset-password",
+  "/verify-email",
+];
 
 // Redirect authenticated users away (e.g. back to /dashboard)
 const AUTH_ROUTES = ["/login", "/register"];
@@ -248,12 +254,12 @@ const ADMIN_ROUTES = ["/dashboard/admin"];
 
 **Behavior at a glance:**
 
-| Scenario | Result |
-| -------- | ------ |
-| Unauthenticated user visits a protected route | Redirect to `/login?callbackUrl=<path>` |
-| Authenticated user visits `/login` or `/register` | Redirect to `/dashboard` |
-| Authenticated `USER` visits `/dashboard/admin` | Redirect to `/dashboard` |
-| Authenticated `ADMIN` visits `/dashboard/admin` | Allowed |
+| Scenario                                          | Result                                  |
+| ------------------------------------------------- | --------------------------------------- |
+| Unauthenticated user visits a protected route     | Redirect to `/login?callbackUrl=<path>` |
+| Authenticated user visits `/login` or `/register` | Redirect to `/dashboard`                |
+| Authenticated `USER` visits `/dashboard/admin`    | Redirect to `/dashboard`                |
+| Authenticated `ADMIN` visits `/dashboard/admin`   | Allowed                                 |
 
 To add a new protected route, simply leave it out of `PUBLIC_ROUTES`. To add an admin-only section, append its prefix to `ADMIN_ROUTES`.
 
