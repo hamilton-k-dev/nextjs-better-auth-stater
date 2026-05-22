@@ -71,7 +71,7 @@ src/
 ### 1. Clone the repo
 
 ```bash
-git clone https://github.com/yourusername/nextjs-better-auth-starter.git
+git clone https://github.com/hamilton-k-dev/nextjs-better-auth-stater
 cd nextjs-better-auth-starter
 ```
 
