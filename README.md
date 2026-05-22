@@ -6,7 +6,7 @@ A production-ready authentication starter built with the latest versions of Next
 
 <div align="center">
 
-🔗 **[View Demo](https://nextjs-better-auth-stater-three.vercel.app/)**
+🔗 **[View Demo](https://nextjs-better-auth-stater-three.vercel.app/)** &nbsp;·&nbsp; 📖 **[Documentation](https://nextjs-better-auth-stater-three.vercel.app/doc)** &nbsp;·&nbsp; ⭐ **[GitHub](https://github.com/hamilton-k-dev/nextjs-better-auth-stater)**
 
 </div>
 

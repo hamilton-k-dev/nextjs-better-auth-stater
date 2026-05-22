@@ -11,6 +11,20 @@ export default function HomePage() {
           </span>
           <div className="flex items-center gap-3">
             <Link
+              href="/doc"
+              className="text-sm text-zinc-400 hover:text-white transition-colors"
+            >
+              Docs
+            </Link>
+            <a
+              href="https://github.com/hamilton-k-dev/nextjs-better-auth-stater"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-sm text-zinc-400 hover:text-white transition-colors"
+            >
+              GitHub
+            </a>
+            <Link
               href="/login"
               className="text-sm text-zinc-400 hover:text-white transition-colors"
             >
@@ -51,7 +65,7 @@ export default function HomePage() {
             to ship.
           </p>
 
-          <div className="flex items-center justify-center gap-3 pt-2">
+          <div className="flex items-center justify-center gap-3 pt-2 flex-wrap">
             <Link
               href="/register"
               className="px-6 py-2.5 bg-white text-black text-sm font-semibold rounded-full hover:bg-zinc-100 transition-colors"
@@ -59,11 +73,19 @@ export default function HomePage() {
               Create account
             </Link>
             <Link
-              href="/login"
+              href="/doc"
               className="px-6 py-2.5 border border-white/10 text-sm text-white rounded-full hover:bg-white/5 transition-colors"
             >
-              Sign in →
+              Read the docs →
             </Link>
+            <a
+              href="https://github.com/hamilton-k-dev/nextjs-better-auth-stater"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-6 py-2.5 border border-white/10 text-sm text-zinc-400 rounded-full hover:bg-white/5 hover:text-white transition-colors"
+            >
+              GitHub ↗
+            </a>
           </div>
         </div>
       </section>

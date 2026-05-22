@@ -4,6 +4,7 @@ import { auth } from "@/lib/auth";
 
 const PUBLIC_ROUTES = [
   "/",
+  "/doc",
   "/login",
   "/register",
   "/reset-password",
