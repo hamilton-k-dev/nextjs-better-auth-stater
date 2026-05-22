@@ -1,10 +1,14 @@
 # ⚡ Next.js Better Auth Starter
 
-<img src="public/landing.webp" alt="Landing page" width="100%" />
+<img src="public/landing1.webp" alt="Landing page" width="100%" />
 
 A production-ready authentication starter built with the latest versions of Next.js, better-auth, Prisma, and Neon. Everything you need to ship auth fast — email/password, OAuth, magic links, role-based access, and transactional emails all wired up out of the box.
 
+<div align="center">
+
 🔗 **[View Demo](https://nextjs-better-auth-stater.vercel.app)**
+
+</div>
 
 ---
 
@@ -224,6 +228,34 @@ Promote a user to admin via Prisma Studio:
 ```bash
 npx prisma studio
 ```
+
+---
+
+## 🔒 Route Protection (`src/proxy.ts`)
+
+Route protection is enforced server-side via Next.js 16's `proxy.ts` — the replacement for `middleware.ts`. Three route groups control access:
+
+```ts
+// Accessible without a session
+const PUBLIC_ROUTES = ["/", "/login", "/register", "/reset-password", "/verify-email"];
+
+// Redirect authenticated users away (e.g. back to /dashboard)
+const AUTH_ROUTES = ["/login", "/register"];
+
+// Require ADMIN role — non-admins are redirected to /dashboard
+const ADMIN_ROUTES = ["/dashboard/admin"];
+```
+
+**Behavior at a glance:**
+
+| Scenario | Result |
+| -------- | ------ |
+| Unauthenticated user visits a protected route | Redirect to `/login?callbackUrl=<path>` |
+| Authenticated user visits `/login` or `/register` | Redirect to `/dashboard` |
+| Authenticated `USER` visits `/dashboard/admin` | Redirect to `/dashboard` |
+| Authenticated `ADMIN` visits `/dashboard/admin` | Allowed |
+
+To add a new protected route, simply leave it out of `PUBLIC_ROUTES`. To add an admin-only section, append its prefix to `ADMIN_ROUTES`.
 
 ---
 
