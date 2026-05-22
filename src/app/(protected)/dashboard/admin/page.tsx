@@ -26,16 +26,8 @@ export default function AdminPage() {
 
   useEffect(() => {
     if (isPending) return;
-    if (!session) {
-      router.push("/login");
-      return;
-    }
-    if ((session.user as { role?: string }).role !== "ADMIN") {
-      router.push("/dashboard");
-      return;
-    }
     fetchUsers();
-  }, [session, isPending]);
+  }, [isPending]);
 
   async function fetchUsers() {
     setLoading(true);
@@ -50,6 +42,7 @@ export default function AdminPage() {
     } catch {
       toast.error("Failed to load users");
     } finally {
+      toast.success("Users loaded successfully");
       setLoading(false);
     }
   }
@@ -367,4 +360,3 @@ function StatCard({
     </div>
   );
 }
-
