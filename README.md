@@ -1,6 +1,6 @@
 # ⚡ Next.js Better Auth Starter
 
-<img src="public/landing.png" alt="Landing page" width="700" />
+<img src="public/landing.webp" alt="Landing page" width="100%" />
 
 A production-ready authentication starter built with the latest versions of Next.js, better-auth, Prisma, and Neon. Everything you need to ship auth fast — email/password, OAuth, magic links, role-based access, and transactional emails all wired up out of the box.
 
@@ -40,29 +40,34 @@ A production-ready authentication starter built with the latest versions of Next
 ## 🖼️ Pages
 
 ### Landing
+
 The public entry point — introduces the app and links to sign in / sign up.
 
-<img src="public/landing.png" alt="Landing page" width="700" />
+<img src="public/landing.webp" alt="Landing page" width="100%" />
 
 ### Login
+
 Sign in with email + password, a magic link, or OAuth (Google / GitHub). Includes a forgot password link.
 
-<img src="public/login.png" alt="Login page" width="700" />
+<img src="public/login.webp" alt="Login page" width="100%" />
 
 ### Register
+
 Create a new account with email + password or OAuth. Sends a verification email on sign up.
 
-<img src="public/register.png" alt="Register page" width="700" />
+<img src="public/register.webp" alt="Register page" width="100%" />
 
 ### Dashboard
+
 Protected user dashboard showing account details, role badge, and email verification status.
 
-<img src="public/dashboard.png" alt="Dashboard" width="700" />
+<img src="public/dashboard.webp" alt="Dashboard" width="100%" />
 
 ### Admin Panel
+
 Accessible to `ADMIN` users only. Lists all users with search, role filter, and promote / revoke controls.
 
-<img src="public/admin-dashboard.png" alt="Admin dashboard" width="700" />
+<img src="public/admin-dashboard.webp" alt="Admin dashboard" width="100%" />
 
 ---
 
